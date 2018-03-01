@@ -3,7 +3,8 @@ import { ADD_POST, ADD_COMMENT, UPVOTE, DOWNVOTE } from '../actions';
 
 const initialState = {
 	current_id: 0,
-	posts: []
+	posts: [],
+	replies: {}
 }
 
 export default function contentReducers(state = initialState, action) {
@@ -16,7 +17,7 @@ export default function contentReducers(state = initialState, action) {
 					{
 						id: state.current_id,
 						content: action.text,
-						title: action.text,
+						title: action.title,
 						upvoteCount: 0,
 						downvoteCount: 0,
 						children: []
@@ -29,10 +30,7 @@ export default function contentReducers(state = initialState, action) {
 				posts: state.posts.map(post =>
 						post.id === action.parent_id
 							? {
-								id: post.id,
-								content: post.content,
-								upvoteCount: post.upvoteCount,
-								downvoteCount: post.downvoteCount,
+								...post,
 								children: [
 									...post.children,
 									state.current_id

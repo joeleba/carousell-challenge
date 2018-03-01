@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { AppRegistry, Text, FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation';
 import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
 class PostListView extends Component {
-  _keyExtractor = (item, index) => item.title;
+  _keyExtractor(item, index) {
+    return item.title;
+  }
 
   render() {
     console.log(this.props.posts);
@@ -15,7 +18,13 @@ class PostListView extends Component {
         <FlatList
           data={this.props.posts}
           keyExtractor={this._keyExtractor}
-          renderItem={({item}) => <Text style={styles.item}>{item.title}</Text>}
+          renderItem={({item}) =>
+          <Text
+            style={styles.item}
+            onPress={() => this.props.dispatchNavigateToPost(item.id)}>
+            {item.title}
+          </Text>
+        }
         />
       </View>
     );
@@ -40,4 +49,16 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(PostListView)
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchNavigateToPost: (postId) =>
+      dispatch(NavigationActions.navigate({
+        routeName: 'PostView',
+        params: {
+          postId: postId
+        }
+      }))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostListView)

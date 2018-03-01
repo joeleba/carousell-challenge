@@ -9,27 +9,25 @@ import getRootReducer from './app/reducers';
 
 import NewPost from './app/containers/NewPost';
 import PostListView from './app/containers/PostListView';
+import PostView from './app/containers/PostView';
 
 const AppNavigator = StackNavigator({
     NewPost: {screen: NewPost},
-    PostListView: {screen: PostListView}
-    // LoginView: {screen: LoginView},
-    // HomeView: {screen: HomeView},
-    // GameView: {screen: GameView},
-    // RegistrationView: {screen: RegistrationView}
+    PostListView: {screen: PostListView},
+    PostView: {screen: PostView}
   },
   {
     initialRouteName: 'NewPost',
     headerMode: 'none'
-});
+  });
 
 const navReducer = (state, action) => {
-    const newState = AppNavigator.router.getStateForAction(action, state);
-    return newState || state;
+  const newState = AppNavigator.router.getStateForAction(action, state);
+  return newState || state;
 };
 
 const mapStateToProps = (state) => ({
-    nav: state.nav
+  nav: state.nav
 });
 
 const middleware = createReactNavigationReduxMiddleware(
