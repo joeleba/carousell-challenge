@@ -8,12 +8,18 @@ import NewContentForm from '../components/NewContentForm'
 
 let NewPost = ({ dispatch }) => {
   let form;
+  let title;
   return (
     <View style={styles.container}>
+      <TextInput
+        onChangeText={(text) => { title = text }}
+        style={styles.titleInput}
+        placeholder="Title"
+      />
       <NewContentForm ref={node => { form = node }}/>
       <Button
           onPress={() => {
-            dispatch(addPost(form.state.title, form.state.content));
+            dispatch(addPost(title, form.state.content));
             dispatch(NavigationActions.navigate({ routeName: 'PostListView' }))
           }}
           title="Submit"
@@ -28,22 +34,9 @@ const styles = StyleSheet.create({
    justifyContent: 'center',
    margin: 20
   },
-  buttonContainer: {
-    margin: 20
-  },
-  alternativeLayoutButtonContainer: {
-    margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
   titleInput: {
     marginBottom: 20
   },
-  textInput: {
-    height: 100,
-    borderWidth: 1,
-    borderColor: 'gray'
-  }
 })
 
 // function mapStateToProps (state) {
