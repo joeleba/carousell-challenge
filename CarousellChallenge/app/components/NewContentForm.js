@@ -9,7 +9,12 @@ export default class NewContentForm extends Component {
     return (
       <View style={styles.container}>
         <TextInput
-          {...this.props}
+          onChangeText={(text) => this.setState({ title: text })}
+          style={styles.titleInput}
+          placeholder="Title"
+        />
+        <TextInput
+          onChangeText={(text) => this.setState({ content: text })}
           style={styles.textInput}
           editable={true}
           maxLength={255}

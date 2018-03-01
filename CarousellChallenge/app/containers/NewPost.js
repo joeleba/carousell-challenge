@@ -7,26 +7,13 @@ import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
 let NewPost = ({ dispatch }) => {
-  let content;
-  let title;
+  let form;
   return (
     <View style={styles.container}>
-      <TextInput
-        onChangeText={(text) => title = text}
-        style={styles.titleInput}
-        placeholder="Title"
-      />
-      <TextInput
-        onChangeText={(text) => content = text}
-        style={styles.textInput}
-        editable={true}
-        maxLength={255}
-        multiline={true}
-        placeholder="What's on your mind?"
-      />
+      <NewContentForm ref={node => { form = node }}/>
       <Button
           onPress={() => {
-            dispatch(addPost(title, content));
+            dispatch(addPost(form.state.title, form.state.content));
             dispatch(NavigationActions.navigate({ routeName: 'PostListView' }))
           }}
           title="Submit"
