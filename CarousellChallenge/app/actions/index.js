@@ -1,5 +1,5 @@
 export const ADD_POST = "ADD_POST";
-export const ADD_REPLY = "ADD_REPLY";
+export const ADD_COMMENT = "ADD_COMMENT";
 export const UPVOTE = "UPVOTE";
 export const DOWNVOTE = "DOWNVOTE";
 
@@ -11,8 +11,8 @@ export const addPost = (title, text) => ({
   text
 })
 
-export const addReply = (parent_id, text) => ({
-  type: ADD_REPLY,
+export const addComment = (parent_id, text) => ({
+  type: ADD_COMMENT,
   id: nextContentId++,
   parent_id: parent_id,
   text
