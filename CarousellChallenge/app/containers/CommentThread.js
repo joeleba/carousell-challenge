@@ -36,7 +36,6 @@ class CommentThread extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
     padding: 10,
     borderColor: 'powderblue',
     borderBottomWidth: 1,
