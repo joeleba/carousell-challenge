@@ -3,7 +3,7 @@ import _ from 'lodash';
 // TODO: Refactor this
 
 const initialState = {
-	current_id: 6,
+	currentId: 6,
 	posts: [
 		{
 			children: [1, 2],
@@ -61,11 +61,11 @@ export default function contentReducers(state = initialState, action) {
 	switch (action.type) {
 		case ADD_POST:
 			return _.assign({}, state, {
-				current_id: state.current_id + 1,
+				currentId: state.currentId + 1,
 				posts: [
 					...state.posts,
 					{
-						id: state.current_id,
+						id: state.currentId,
 						content: action.text,
 						title: action.title,
 						upvoteCount: 0,
@@ -75,38 +75,29 @@ export default function contentReducers(state = initialState, action) {
 				]
 			})
 		case ADD_COMMENT:
-			let commentsObj = _.transform(
-				state.comments,
-				function(result, comment, id) {
-					result[id] = id === action.parentId
-						? {
-							id: id,
-							content: comment.content,
-							upvoteCount: comment.upvoteCount,
-							downvoteCount: comment.downvoteCount,
-							children: [...comment.children, state.current_id]
-						}
-						: comment;
-				},
-				{}
-			);
-			commentsObj[state.current_id] = {
-				id: state.current_id,
-				content: action.text,
-				upvoteCount: 0,
-				downvoteCount: 0,
-				children: []
-			};
+			let commentsObj = _.clone(state.comments);
+
+			// If parent is a comment
+			if (commentsObj[action.parentId]) {
+				commentsObj[action.parentId].children.push(state.currentId);
+				commentsObj[state.currentId] = {
+					id: state.currentId,
+					content: action.text,
+					upvoteCount: 0,
+					downvoteCount: 0,
+					children: []
+				};
+			}
 
 			return _.assign({}, state, {
-				current_id: state.current_id + 1,
+				currentId: state.currentId + 1,
 				posts: state.posts.map(post =>
 					post.id === action.parentId
 						? {
 							...post,
 							children: [
 								...post.children,
-								state.current_id
+								state.currentId
 							]
 						}
 						: post

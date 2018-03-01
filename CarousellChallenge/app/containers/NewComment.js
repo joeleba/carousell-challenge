@@ -6,10 +6,9 @@ import { NavigationActions } from 'react-navigation';
 import { addComment } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
-class NewPost extends Component {
+class NewComment extends Component {
   render() {
     let form;
-    console.log('==============' + this.props.navigation.state.params);
     let parentComment = this.props.navigation.state.params.replyingToObject;
     let postId = this.props.navigation.state.params.postId;
 
@@ -57,4 +56,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(NewComment)

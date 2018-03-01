@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { addPost } from '../actions';
 import NewContentForm from '../components/NewContentForm';
-import CommentThread from '../containers/CommentThread';
+import CommentThreadWrapper from '../containers/CommentThread';
 import _ from 'lodash'
 
 class PostListView extends Component {
@@ -20,7 +20,6 @@ class PostListView extends Component {
     let childrenObjects = _.map(
       post.children, (id) => { return this.props.comments[id] }
     );
-    console.log(childrenObjects);
     return (
       <View style={styles.container}>
         <View style={styles.post}>
@@ -39,7 +38,7 @@ class PostListView extends Component {
             keyExtractor={this._keyExtractor}
             renderItem={({item}) =>
               <View style={styles.comment}>
-                <CommentThread comment={item}/>
+                <CommentThreadWrapper comment={item} postId={post.id}/>
               </View>
             }
           />
