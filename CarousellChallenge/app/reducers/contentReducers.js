@@ -2,9 +2,55 @@ import { ADD_POST, ADD_COMMENT, UPVOTE, DOWNVOTE } from '../actions';
 // TODO: Refactor this
 
 const initialState = {
-	current_id: 0,
-	posts: [],
-	replies: {}
+	current_id: 6,
+	posts: [
+		{
+			children: [1, 2],
+			content: "ccc",
+			downvoteCount: 0,
+			upvoteCount: 0,
+			title: "sad",
+			id: 0
+		}
+	],
+	comments: {
+		1: {
+			children: [3, 4, 5],
+			content: "ccc1",
+			downvoteCount: 0,
+			upvoteCount: 0,
+			id: 1
+		},
+		2: {
+			children: [],
+			content: "ccc2",
+			downvoteCount: 0,
+			upvoteCount: 0,
+			id: 2
+		},
+		3: {
+			children: [],
+			content: "ccc3",
+			downvoteCount: 0,
+			upvoteCount: 0,
+			id: 3
+		},
+		4: {
+			children: [],
+			content: "ccc4",
+			downvoteCount: 0,
+			upvoteCount: 0,
+			id: 4
+		},
+		5: {
+			children: [],
+			content: "ccc5",
+			downvoteCount: 0,
+			upvoteCount: 0,
+			id: 5
+		},
+
+	}
 }
 
 export default function contentReducers(state = initialState, action) {
@@ -38,9 +84,9 @@ export default function contentReducers(state = initialState, action) {
 							}
 							: post
 					),
-				replies: _.merge(
+				comments: _.merge(
 					_.transform(
-						state.replies,
+						state.comments,
 						function(result, reply, id) {
 							result[id] = id === action.parent_id
 								? {

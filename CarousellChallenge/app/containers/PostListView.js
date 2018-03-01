@@ -7,24 +7,23 @@ import NewContentForm from '../components/NewContentForm'
 
 class PostListView extends Component {
   _keyExtractor(item, index) {
-    return item.title;
+    return item.id;
   }
 
   render() {
     console.log(this.props.posts);
     return (
       <View style={styles.container}>
-      <Text>HELOOOOOO</Text>
         <FlatList
           data={this.props.posts}
           keyExtractor={this._keyExtractor}
           renderItem={({item}) =>
-          <Text
-            style={styles.item}
-            onPress={() => this.props.dispatchNavigateToPost(item.id)}>
-            {item.title}
-          </Text>
-        }
+            <Text
+              style={styles.item}
+              onPress={() => this.props.dispatchNavigateToPost(item.id)}>
+              {item.title}
+            </Text>
+          }
         />
       </View>
     );

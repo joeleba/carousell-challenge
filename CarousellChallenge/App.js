@@ -17,7 +17,7 @@ const AppNavigator = StackNavigator({
     PostView: {screen: PostView}
   },
   {
-    initialRouteName: 'NewPost',
+    initialRouteName: 'PostListView',
     headerMode: 'none'
   });
 
