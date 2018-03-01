@@ -3,18 +3,15 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const UPVOTE = "UPVOTE";
 export const DOWNVOTE = "DOWNVOTE";
 
-let nextContentId = 0
 export const addPost = (title, text) => ({
   type: ADD_POST,
-  id: nextContentId++,
   title: title,
   text
 })
 
-export const addComment = (parent_id, text) => ({
+export const addComment = (parentId, text) => ({
   type: ADD_COMMENT,
-  id: nextContentId++,
-  parent_id: parent_id,
+  parentId: parentId,
   text
 })
 

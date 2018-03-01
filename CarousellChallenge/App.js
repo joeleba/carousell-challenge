@@ -8,16 +8,18 @@ import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } fro
 import getRootReducer from './app/reducers';
 
 import NewPost from './app/containers/NewPost';
+import NewComment from './app/containers/NewComment';
 import PostListView from './app/containers/PostListView';
 import PostView from './app/containers/PostView';
 
 const AppNavigator = StackNavigator({
     NewPost: {screen: NewPost},
     PostListView: {screen: PostListView},
-    PostView: {screen: PostView}
+    PostView: {screen: PostView},
+    NewComment: {screen: NewComment}
   },
   {
-    initialRouteName: 'PostListView',
+    initialRouteName: 'NewPost',
     headerMode: 'none'
   });
 

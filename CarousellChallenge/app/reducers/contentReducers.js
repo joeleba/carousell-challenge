@@ -1,4 +1,5 @@
 import { ADD_POST, ADD_COMMENT, UPVOTE, DOWNVOTE } from '../actions';
+import _ from 'lodash';
 // TODO: Refactor this
 
 const initialState = {
@@ -54,9 +55,12 @@ const initialState = {
 }
 
 export default function contentReducers(state = initialState, action) {
+	let setComment = (id, content) => {
+
+	};
 	switch (action.type) {
 		case ADD_POST:
-			return Object.assign({}, state, {
+			return _.assign({}, state, {
 				current_id: state.current_id + 1,
 				posts: [
 					...state.posts,
@@ -71,41 +75,43 @@ export default function contentReducers(state = initialState, action) {
 				]
 			})
 		case ADD_COMMENT:
-			return Object.assign({}, state, {
+			let commentsObj = _.transform(
+				state.comments,
+				function(result, comment, id) {
+					result[id] = id === action.parentId
+						? {
+							id: id,
+							content: comment.content,
+							upvoteCount: comment.upvoteCount,
+							downvoteCount: comment.downvoteCount,
+							children: [...comment.children, state.current_id]
+						}
+						: comment;
+				},
+				{}
+			);
+			commentsObj[state.current_id] = {
+				id: state.current_id,
+				content: action.text,
+				upvoteCount: 0,
+				downvoteCount: 0,
+				children: []
+			};
+
+			return _.assign({}, state, {
 				current_id: state.current_id + 1,
 				posts: state.posts.map(post =>
-						post.id === action.parent_id
-							? {
-								...post,
-								children: [
-									...post.children,
-									state.current_id
-								]
-							}
-							: post
-					),
-				comments: _.merge(
-					_.transform(
-						state.comments,
-						function(result, reply, id) {
-							result[id] = id === action.parent_id
-								? {
-									id: id,
-									content: reply.content,
-									upvoteCount: reply.upvoteCount,
-									downvoteCount: reply.downvoteCount,
-									children: [...reply.children, state.current_id]
-								}
-								: reply;
-						},
-						{}),
-					{
-						id: state.current_id,
-						content: action.text,
-						upvoteCount: 0,
-						downvoteCount: 0,
-						children: []
-					})
+					post.id === action.parentId
+						? {
+							...post,
+							children: [
+								...post.children,
+								state.current_id
+							]
+						}
+						: post
+				),
+				comments: commentsObj
 			})
 		default:
 			return state;
