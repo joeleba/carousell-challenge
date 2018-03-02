@@ -3,6 +3,7 @@ import { AppRegistry, Text, FlatList, ScrollView, StyleSheet, View } from 'react
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import _ from 'lodash';
 
 import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
@@ -13,11 +14,12 @@ class PostListView extends Component {
   }
 
   render() {
+    let posts = _.values(this.props.postsObject);
     return (
       <View style={styles.container}>
         <ScrollView>
           <FlatList
-            data={this.props.posts}
+            data={posts}
             keyExtractor={this._keyExtractor}
             renderItem={({item}) =>
               <Text
@@ -28,6 +30,7 @@ class PostListView extends Component {
             }
           />
         </ScrollView>
+
         <View style={styles.floatingNewPostButton}>
           <Icon
             name="plus"
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    posts: state.contentReducers.posts
+    postsObject: state.contentReducers.posts
   }
 }
 

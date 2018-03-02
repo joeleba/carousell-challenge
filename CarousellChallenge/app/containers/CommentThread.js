@@ -3,7 +3,6 @@ import { Alert, AppRegistry, FlatList, Text, TextInput, Button, StyleSheet, View
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
-import { addPost } from '../actions';
 import OptionsRow from '../containers/OptionsRow';
 import _ from 'lodash';
 
@@ -21,7 +20,7 @@ class CommentThread extends Component {
     return (
       <View style={styles.container}>
         <Text> {this.props.comment.content} </Text>
-        <OptionsRow replyingToObject={this.props.comment} postId={this.props.postId}/>
+        <OptionsRow currentComment={this.props.comment} postId={this.props.postId}/>
 
         { childrenObjects.length !== 0 &&
           <FlatList
@@ -52,20 +51,7 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchNavigateToNewReply: (postId, replyingToObject) =>
-      dispatch(NavigationActions.navigate({
-        routeName: 'NewComment',
-        params: {
-          postId: postId,
-          replyingToObject: replyingToObject
-        }
-      }))
-  }
-}
-
 // To ensure that we're recursively creating the component wrapped with
 // Redux's connect function, instead of the local definition (pure React.Component)
-let CommentThreadWrapper = connect(mapStateToProps, mapDispatchToProps)(CommentThread);
+let CommentThreadWrapper = connect(mapStateToProps)(CommentThread);
 export default CommentThreadWrapper;

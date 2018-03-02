@@ -7,7 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
-// TODO: Refactor to Component
 class NewPost extends Component {
   render() {
     let form;

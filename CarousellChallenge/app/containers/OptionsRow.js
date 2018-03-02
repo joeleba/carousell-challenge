@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { addPost } from '../actions';
+import { upvote, downvote } from '../actions';
 import NewContentForm from '../components/NewContentForm';
 import CommentThreadWrapper from '../containers/CommentThread';
 import _ from 'lodash'
@@ -15,21 +15,26 @@ class OptionsRow extends Component {
   }
 
   render() {
-    let parentComment = this.props.replyingToObject;
+    let currentComment = this.props.currentComment;
     let postId = this.props.postId;
 
     return (
       <View style={styles.optionsRow}>
-            <Text style={styles.option} onPress={() => this.props.dispatchNavigateToNewReply(postId, parentComment)}>
-              <Icon name="reply">{" Reply  |  "}</Icon>
-            </Text>
+        <Text
+          style={styles.option}
+          onPress={() => this.props.dispatchNavigateToNewReply(postId, currentComment)}>
+          <Icon name="reply">{" Reply  |  "}</Icon>
+        </Text>
 
-            <Text style={styles.option}>
-              <Icon name="arrow-up"></Icon>
-              100
-              <Icon name="arrow-down"></Icon>
-            </Text>
-
+        <Text style={styles.option}>
+          <Icon
+            name="arrow-up"
+            onPress={() => this.props.dispatchUpvoteAction(currentComment.id)}></Icon>
+          {` ${(currentComment.upvoteCount - currentComment.downvoteCount)} `}
+          <Icon
+            name="arrow-down"
+            onPress={() => this.props.dispatchDownvoteAction(currentComment.id)}></Icon>
+        </Text>
       </View>
     );
   }
@@ -61,6 +66,8 @@ function mapDispatchToProps(dispatch) {
           replyingToObject: replyingToObject
         }
       })),
+    dispatchUpvoteAction: (id) => dispatch(upvote(id)),
+    dispatchDownvoteAction: (id) => dispatch(downvote(id))
   }
 }
 

@@ -16,10 +16,7 @@ class PostView extends Component {
   }
 
   render() {
-    let post = _.find(
-      this.props.posts,
-      { id: this.props.navigation.state.params.postId }
-    );
+    let post = this.props.posts[this.props.navigation.state.params.postId];
     let childrenObjects = _.map(
       post.children, (id) => { return this.props.comments[id] }
     );
@@ -35,7 +32,7 @@ class PostView extends Component {
           <Text style={styles.title}> {post.title} </Text>
           <Text> {post.content} </Text>
 
-          <OptionsRow replyingToObject={post} postId={post.id}/>
+          <OptionsRow currentComment={post} postId={post.id}/>
         </View>
 
         { childrenObjects.length !== 0 &&
@@ -83,9 +80,9 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatchNavigateBackToPostListView: () =>
       dispatch(NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'PostListView' })],
-    }))
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'PostListView' })],
+      }))
   }
 }
 
