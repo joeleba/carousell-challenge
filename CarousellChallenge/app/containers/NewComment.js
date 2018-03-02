@@ -8,8 +8,17 @@ import { addComment } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
 class NewComment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formState: {
+        content: ""
+      }
+    };
+  }
+
   render() {
-    let form;
+    // let form;
     let parentComment = this.props.navigation.state.params.replyingToObject;
     let postId = this.props.navigation.state.params.postId;
 
@@ -26,13 +35,17 @@ class NewComment extends Component {
         <Text style={styles.parentComment}>
           {parentComment.content}
         </Text>
-        <NewContentForm ref={node => { form = node }}/>
+        <NewContentForm onChange={ formState => {
+          this.setState({ formState: formState });
+        }}/>
+
         <Button
-            onPress={() => {
-              this.props.dispatchAddComment(parentComment.id, form.state.content);
-              this.props.dispatchNavigateToPost(postId)
-            }}
-            title="Submit"
+          onPress={() => {
+            this.props.dispatchAddComment(parentComment.id, this.state.formState.content);
+            this.props.dispatchNavigateToPost(postId)
+          }}
+          title="Submit"
+          disabled={this.state.formState.content.length === 0}
         />
       </View>
     )

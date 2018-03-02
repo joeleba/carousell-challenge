@@ -8,9 +8,17 @@ import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
 class NewPost extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formState: {
+        content: ""
+      },
+      title: ""
+    };
+  }
+
   render() {
-    let form;
-    let title;
     return (
       <View style={styles.container}>
         <Icon
@@ -20,18 +28,22 @@ class NewPost extends Component {
         </Icon>
 
         <TextInput
-          onChangeText={(text) => { title = text }}
+          onChangeText={(text) => { this.state.title = text }}
           style={styles.titleInput}
           placeholder="Title"
         />
-        <NewContentForm ref={node => { form = node }}/>
+        <NewContentForm onChange={ formState => {
+          this.setState({ formState: formState });
+        }}/>
+
         <Button
             onPress={() => {
               let newPostId = this.props.currentId;
-              this.props.dispatchAddPost(title, form.state.content);
+              this.props.dispatchAddPost(this.state.title, this.state.formState.content);
               this.props.dispatchNavigateToPost(newPostId);
             }}
             title="Submit"
+            disabled={this.state.formState.content.length === 0 || this.state.title.length === 0}
         />
       </View>
     )

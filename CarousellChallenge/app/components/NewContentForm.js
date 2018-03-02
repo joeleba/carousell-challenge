@@ -5,18 +5,28 @@ import { addPost } from '../actions'
 
 
 export default class NewContentForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      content: ""
+    }
+  }
+
   render() {
     return (
-      <View>
         <TextInput
-          onChangeText={(text) => this.setState({ content: text })}
+          onChangeText={(text) => {
+            this.setState({ content: text }, () => {
+              this.props.onChange(this.state);
+            });
+          }}
           style={styles.textInput}
           editable={true}
           maxLength={255}
           multiline={true}
           placeholder="What's on your mind?"
         />
-      </View>
     );
   }
 }
