@@ -13,7 +13,16 @@ class PostListView extends Component {
   }
 
   render() {
-    let posts = _.values(this.props.postsObject);
+    // I'm aware that the problem asked us to sort the topic by "upvotes"
+    // I assume that you meant the "overral vote count" i.e. upvote - downvote
+    let posts = _.orderBy(
+      _.values(this.props.postsObject),
+      [(p) => { return p.upvoteCount - p.downvoteCount; }],
+      ['desc']
+    );
+
+    console.log(posts);
+
     return (
       <View style={styles.container}>
         <ScrollView>
