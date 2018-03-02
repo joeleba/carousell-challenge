@@ -1,47 +1,45 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, FlatList, StyleSheet, View } from 'react-native';
+import { Text, FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import _ from 'lodash';
 
-import { addPost } from '../actions';
 import NewContentForm from '../components/NewContentForm';
 import CommentThreadWrapper from '../containers/CommentThread';
 import OptionsRow from '../containers/OptionsRow';
-import _ from 'lodash'
 
 class PostView extends Component {
-  _keyExtractor(item, index) {
+  keyExtractor(item, index) {
     return item.id;
   }
 
   render() {
-    let post = this.props.posts[this.props.navigation.state.params.postId];
-    let childrenObjects = _.map(
-      post.children, (id) => { return this.props.comments[id] }
-    );
+    const post = this.props.posts[this.props.navigation.state.params.postId];
+    const childrenObjects = _.map(post.children, id => this.props.comments[id]);
+
     return (
       <View style={styles.container}>
         <View style={styles.post}>
           <Icon
             name="close"
             size={20}
-            onPress={() => this.props.dispatchNavigateBackToPostListView()}>
-          </Icon>
+            onPress={() => this.props.dispatchNavigateBackToPostListView()}
+          />
 
           <Text style={styles.title}> {post.title} </Text>
           <Text> {post.content} </Text>
 
-          <OptionsRow currentComment={post} postId={post.id}/>
+          <OptionsRow currentComment={post} postId={post.id} />
         </View>
 
         { childrenObjects.length !== 0 &&
           <FlatList
             data={childrenObjects}
-            keyExtractor={this._keyExtractor}
-            renderItem={({item}) =>
+            keyExtractor={this.keyExtractor}
+            renderItem={({ item }) =>
               <View style={styles.comment}>
-                <CommentThreadWrapper comment={item} postId={post.id}/>
+                <CommentThreadWrapper comment={item} postId={post.id} />
               </View>
             }
           />
@@ -54,7 +52,7 @@ class PostView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22
+    paddingTop: 22,
   },
   post: {
     padding: 10,
@@ -66,15 +64,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
-    paddingTop: 10
-  }
-})
+    paddingTop: 10,
+  },
+});
 
 function mapStateToProps(state) {
   return {
     posts: state.contentReducers.posts,
-    comments: state.contentReducers.comments
-  }
+    comments: state.contentReducers.comments,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -83,8 +81,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(NavigationActions.reset({
         index: 0,
         actions: [NavigationActions.navigate({ routeName: 'PostListView' })],
-      }))
-  }
+      })),
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostView)
+export default connect(mapStateToProps, mapDispatchToProps)(PostView);

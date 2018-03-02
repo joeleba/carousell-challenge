@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import { AppRegistry, Text, TextInput, Button, StyleSheet, View } from 'react-native';
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { TextInput, Button, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { addPost } from '../actions'
-import NewContentForm from '../components/NewContentForm'
+import { addPost } from '../actions';
+import NewContentForm from '../components/NewContentForm';
 
 class NewPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
       formState: {
-        content: ""
+        content: '',
       },
-      title: ""
+      title: '',
     };
   }
 
@@ -24,66 +24,63 @@ class NewPost extends Component {
         <Icon
           name="close"
           size={20}
-          onPress={() => this.props.dispatchNavigateBackToPostListView()}>
-        </Icon>
+          onPress={() => this.props.dispatchNavigateBackToPostListView()}
+        />
 
         <TextInput
-          onChangeText={(text) => { this.state.title = text }}
+          onChangeText={(text) => { this.state.title = text; }}
           style={styles.titleInput}
           placeholder="Title"
         />
-        <NewContentForm onChange={ formState => {
-          this.setState({ formState: formState });
-        }}/>
+        <NewContentForm onChange={(formState) => {
+          this.setState({ formState });
+        }} />
 
         <Button
-            onPress={() => {
-              let newPostId = this.props.currentId;
-              this.props.dispatchAddPost(this.state.title, this.state.formState.content);
-              this.props.dispatchNavigateToPost(newPostId);
-            }}
-            title="Submit"
-            disabled={this.state.formState.content.length === 0 || this.state.title.length === 0}
+          onPress={() => {
+            let newPostId = this.props.currentId;
+            this.props.dispatchAddPost(this.state.title, this.state.formState.content);
+            this.props.dispatchNavigateToPost(newPostId);
+          }}
+          title="Submit"
+          disabled={this.state.formState.content.length === 0 || this.state.title.length === 0}
         />
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   margin: 20
+    flex: 1,
+    margin: 20,
   },
   titleInput: {
     marginBottom: 20,
-    marginTop: 20
+    marginTop: 20,
   },
-})
+});
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
-    currentId: state.contentReducers.currentId
-  }
+    currentId: state.contentReducers.currentId,
+  };
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    dispatchNavigateToPost: (postId) =>
+    dispatchNavigateToPost: postId =>
       dispatch(NavigationActions.navigate({
         routeName: 'PostView',
-        params: {
-          postId: postId
-        }
+        params: { postId },
       })),
     dispatchNavigateBackToPostListView: () =>
       dispatch(NavigationActions.reset({
         index: 0,
         actions: [NavigationActions.navigate({ routeName: 'PostListView' })],
       })),
-    dispatchAddPost: (title, content) =>
-      dispatch(addPost(title, content))
-  }
+    dispatchAddPost: (title, content) => dispatch(addPost(title, content)),
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
