@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   post: {
     padding: 10,
-    borderColor: 'powderblue',
+    borderColor: 'lightgrey',
     borderBottomWidth: 1,
   },
   comment: {
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 25,
+    paddingTop: 10
   }
 })
 

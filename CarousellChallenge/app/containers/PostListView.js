@@ -5,7 +5,7 @@ import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import _ from 'lodash';
 
-import { addPost } from '../actions'
+import { addPost, upvote, downvote } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
 class PostListView extends Component {
@@ -22,11 +22,22 @@ class PostListView extends Component {
             data={posts}
             keyExtractor={this._keyExtractor}
             renderItem={({item}) =>
-              <Text
-                style={styles.item}
-                onPress={() => this.props.dispatchNavigateToPost(item.id)}>
-                {item.title}
-              </Text>
+              <View style={styles.item}>
+                <Text style={styles.vote}>
+                  <Icon
+                    name="arrow-up"
+                    onPress={() => this.props.dispatchUpvoteAction(item.id)}></Icon>
+                  {`  ${(item.upvoteCount - item.downvoteCount)}  `}
+                  <Icon
+                    name="arrow-down"
+                    onPress={() => this.props.dispatchDownvoteAction(item.id)}></Icon>
+                </Text>
+                <Text
+                  style={styles.title}
+                  onPress={() => this.props.dispatchNavigateToPost(item.id)}>
+                  {item.title}
+                </Text>
+              </View>
             }
           />
         </ScrollView>
@@ -49,16 +60,27 @@ const styles = StyleSheet.create({
    flex: 1,
    paddingTop: 22
   },
-  item: {
-    padding: 10,
+  title: {
     fontSize: 18,
-    height: 44,
+    flex: 0.8
   },
   floatingNewPostButton: {
     alignSelf: 'flex-end',
     position: 'absolute',
     bottom: 35,
     right: 35
+  },
+  vote: {
+    fontSize: 18,
+    flex: 0.2,
+    color: 'gray'
+  },
+  item: {
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+    flexDirection: 'row',
+    paddingVertical: 20,
+    paddingHorizontal: 10
   }
 })
 
@@ -78,7 +100,9 @@ function mapDispatchToProps(dispatch) {
         }
       })),
     dispatchNavigateToNewPost: () =>
-      dispatch(NavigationActions.navigate({ routeName: 'NewPost' }))
+      dispatch(NavigationActions.navigate({ routeName: 'NewPost' })),
+    dispatchUpvoteAction: (id) => dispatch(upvote(id)),
+    dispatchDownvoteAction: (id) => dispatch(downvote(id))
   }
 }
 

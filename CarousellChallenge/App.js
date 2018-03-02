@@ -19,7 +19,7 @@ const AppNavigator = StackNavigator({
     NewComment: {screen: NewComment}
   },
   {
-    initialRouteName: 'NewPost',
+    initialRouteName: 'PostListView',
     headerMode: 'none'
   });
 

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
     paddingLeft: 10,
-    borderColor: 'powderblue',
+    borderColor: 'lightgrey',
     borderLeftWidth: 1,
   }
 })
