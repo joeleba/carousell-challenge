@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Alert, AppRegistry, FlatList, Text, TextInput, Button, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+
 import { addPost } from '../actions';
+import OptionsRow from '../containers/OptionsRow';
 import _ from 'lodash';
 
 
@@ -19,13 +21,7 @@ class CommentThread extends Component {
     return (
       <View style={styles.container}>
         <Text> {this.props.comment.content} </Text>
-        <Text
-          style={styles.replyButton}
-          onPress={() =>
-            this.props.dispatchNavigateToNewReply(this.props.postId, this.props.comment)
-          }>
-          Reply
-        </Text>
+        <OptionsRow replyingToObject={this.props.comment} postId={this.props.postId}/>
 
         { childrenObjects.length !== 0 &&
           <FlatList
@@ -43,10 +39,11 @@ class CommentThread extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingTop: 10,
+    paddingLeft: 10,
     borderColor: 'powderblue',
     borderLeftWidth: 1,
-  },
+  }
 })
 
 function mapStateToProps(state) {

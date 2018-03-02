@@ -2,53 +2,77 @@ import React, { Component } from 'react'
 import { AppRegistry, Text, TextInput, Button, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
-let NewPost = ({ dispatch }) => {
-  let form;
-  let title;
-  return (
-    <View style={styles.container}>
-      <TextInput
-        onChangeText={(text) => { title = text }}
-        style={styles.titleInput}
-        placeholder="Title"
-      />
-      <NewContentForm ref={node => { form = node }}/>
-      <Button
-          onPress={() => {
-            dispatch(addPost(title, form.state.content));
-            dispatch(NavigationActions.navigate({ routeName: 'PostListView' }))
-          }}
-          title="Submit"
-      />
-    </View>
-  )
+// TODO: Refactor to Component
+class NewPost extends Component {
+  render() {
+    let form;
+    let title;
+    return (
+      <View style={styles.container}>
+        <Icon
+          name="close"
+          size={20}
+          onPress={() => this.props.dispatchNavigateBackToPostListView()}>
+        </Icon>
+
+        <TextInput
+          onChangeText={(text) => { title = text }}
+          style={styles.titleInput}
+          placeholder="Title"
+        />
+        <NewContentForm ref={node => { form = node }}/>
+        <Button
+            onPress={() => {
+              let newPostId = this.props.currentId;
+              this.props.dispatchAddPost(title, form.state.content);
+              this.props.dispatchNavigateToPost(newPostId);
+            }}
+            title="Submit"
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   justifyContent: 'center',
    margin: 20
   },
   titleInput: {
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 20
   },
 })
 
-// function mapStateToProps (state) {
-//   return {
-//     people: state.people.people
-//   }
-// }
+function mapStateToProps (state) {
+  return {
+    currentId: state.contentReducers.currentId
+  }
+}
 
-// function mapDispatchToProps (dispatch) {
-//   return {
-//     dispatchAddPost: (text) => dispatch(addPost(text)),
-//   }
-// }
+function mapDispatchToProps (dispatch) {
+  return {
+    dispatchNavigateToPost: (postId) =>
+      dispatch(NavigationActions.navigate({
+        routeName: 'PostView',
+        params: {
+          postId: postId
+        }
+      })),
+    dispatchNavigateBackToPostListView: () =>
+      dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'PostListView' })],
+      })),
+    dispatchAddPost: (title, content) =>
+      dispatch(addPost(title, content))
+  }
+}
 
-export default connect()(NewPost)
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost)

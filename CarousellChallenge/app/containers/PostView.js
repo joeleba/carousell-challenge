@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { addPost } from '../actions';
 import NewContentForm from '../components/NewContentForm';
 import CommentThreadWrapper from '../containers/CommentThread';
+import OptionsRow from '../containers/OptionsRow';
 import _ from 'lodash'
 
-class PostListView extends Component {
+class PostView extends Component {
   _keyExtractor(item, index) {
     return item.id;
   }
@@ -23,13 +26,16 @@ class PostListView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.post}>
-          <Text> {post.title} </Text>
+          <Icon
+            name="close"
+            size={20}
+            onPress={() => this.props.dispatchNavigateBackToPostListView()}>
+          </Icon>
+
+          <Text style={styles.title}> {post.title} </Text>
           <Text> {post.content} </Text>
-          <Text
-            style={styles.replyButton}
-            onPress={() => this.props.dispatchNavigateToNewReply(post.id, post)}>
-            Reply
-          </Text>
+
+          <OptionsRow replyingToObject={post} postId={post.id}/>
         </View>
 
         { childrenObjects.length !== 0 &&
@@ -50,8 +56,8 @@ class PostListView extends Component {
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 22
+    flex: 1,
+    paddingTop: 22
   },
   post: {
     padding: 10,
@@ -61,8 +67,8 @@ const styles = StyleSheet.create({
   comment: {
     padding: 10,
   },
-  replyButton: {
-
+  title: {
+    fontSize: 25,
   }
 })
 
@@ -75,15 +81,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchNavigateToNewReply: (postId, replyingToObject) =>
-      dispatch(NavigationActions.navigate({
-        routeName: 'NewComment',
-        params: {
-          postId: postId,
-          replyingToObject: replyingToObject
-        }
-      }))
+    dispatchNavigateBackToPostListView: () =>
+      dispatch(NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'PostListView' })],
+    }))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostListView)
+export default connect(mapStateToProps, mapDispatchToProps)(PostView)

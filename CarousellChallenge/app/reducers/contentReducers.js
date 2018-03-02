@@ -80,14 +80,16 @@ export default function contentReducers(state = initialState, action) {
 			// If parent is a comment
 			if (commentsObj[action.parentId]) {
 				commentsObj[action.parentId].children.push(state.currentId);
-				commentsObj[state.currentId] = {
-					id: state.currentId,
-					content: action.text,
-					upvoteCount: 0,
-					downvoteCount: 0,
-					children: []
-				};
 			}
+
+			// Add new comment
+			commentsObj[state.currentId] = {
+				id: state.currentId,
+				content: action.text,
+				upvoteCount: 0,
+				downvoteCount: 0,
+				children: []
+			};
 
 			return _.assign({}, state, {
 				currentId: state.currentId + 1,

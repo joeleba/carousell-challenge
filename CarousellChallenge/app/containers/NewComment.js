@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AppRegistry, Text, TextInput, Button, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { addComment } from '../actions'
 import NewContentForm from '../components/NewContentForm'
@@ -14,7 +15,12 @@ class NewComment extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>
+        <Icon
+          name="close"
+          size={20}
+          onPress={() => this.props.dispatchNavigateToPost(postId)}>
+        </Icon>
+        <Text style={styles.titleText}>
           Replying To:
         </Text>
         <Text style={styles.parentComment}>
@@ -36,13 +42,16 @@ class NewComment extends Component {
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   justifyContent: 'center',
    margin: 20
   },
   parentComment: {
     color: 'gray',
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 20
   },
+  titleText: {
+    marginTop: 20
+  }
 })
 
 function mapStateToProps(state) {

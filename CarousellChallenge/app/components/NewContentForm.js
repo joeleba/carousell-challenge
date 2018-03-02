@@ -7,12 +7,7 @@ import { addPost } from '../actions'
 export default class NewContentForm extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <TextInput
-          onChangeText={(text) => this.setState({ title: text })}
-          style={styles.titleInput}
-          placeholder="Title"
-        />
+      <View>
         <TextInput
           onChangeText={(text) => this.setState({ content: text })}
           style={styles.textInput}
@@ -27,19 +22,6 @@ export default class NewContentForm extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   justifyContent: 'center',
-   margin: 20
-  },
-  buttonContainer: {
-    margin: 20
-  },
-  alternativeLayoutButtonContainer: {
-    margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
   textInput: {
     height: 100,
     borderWidth: 1,

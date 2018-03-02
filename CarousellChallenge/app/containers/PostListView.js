@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { AppRegistry, Text, FlatList, StyleSheet, View } from 'react-native';
+import { AppRegistry, Text, FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { addPost } from '../actions'
 import NewContentForm from '../components/NewContentForm'
 
@@ -11,20 +13,29 @@ class PostListView extends Component {
   }
 
   render() {
-    console.log(this.props.posts);
     return (
       <View style={styles.container}>
-        <FlatList
-          data={this.props.posts}
-          keyExtractor={this._keyExtractor}
-          renderItem={({item}) =>
-            <Text
-              style={styles.item}
-              onPress={() => this.props.dispatchNavigateToPost(item.id)}>
-              {item.title}
-            </Text>
-          }
-        />
+        <ScrollView>
+          <FlatList
+            data={this.props.posts}
+            keyExtractor={this._keyExtractor}
+            renderItem={({item}) =>
+              <Text
+                style={styles.item}
+                onPress={() => this.props.dispatchNavigateToPost(item.id)}>
+                {item.title}
+              </Text>
+            }
+          />
+        </ScrollView>
+        <View style={styles.floatingNewPostButton}>
+          <Icon
+            name="plus"
+            backgroundColor="#3b5998"
+            size={20}
+            onPress={() => this.props.dispatchNavigateToNewPost()}>
+          </Icon>
+        </View>
       </View>
     );
   }
@@ -40,6 +51,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  floatingNewPostButton: {
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    bottom: 35,
+    right: 35
+  }
 })
 
 function mapStateToProps(state) {
@@ -56,7 +73,9 @@ function mapDispatchToProps(dispatch) {
         params: {
           postId: postId
         }
-      }))
+      })),
+    dispatchNavigateToNewPost: () =>
+      dispatch(NavigationActions.navigate({ routeName: 'NewPost' }))
   }
 }
 
