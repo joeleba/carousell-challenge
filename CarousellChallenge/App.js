@@ -59,7 +59,7 @@ const AppWithNavigationState = connect(mapStateToProps)(App);
 
 const store = createStore(
   getRootReducer(navReducer),
-  applyMiddleware(middleware, logger),
+  applyMiddleware(middleware),
 );
 
 export default class Root extends Component {
