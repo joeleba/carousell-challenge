@@ -35,6 +35,38 @@ function changeVoteComment(state, isUpvote, id) {
   });
 }
 
+function updateComments(state, parentId, text) {
+  return state.comments[parentId]
+    ? _.assign({}, state.comments, {
+        ...state.comments,
+        [state.currentId]: { // Add new comment
+          id: state.currentId,
+          content: text,
+          upvoteCount: 0,
+          downvoteCount: 0,
+          children: [],
+        },
+        // Update parent comment
+        [parentId]: {
+          ...state.comments[parentId],
+          children: [
+            ...state.comments[parentId].children,
+            state.currentId,
+          ],
+        }
+      })
+    : _.assign({}, state.comments, {
+        ...state.comments,
+        [state.currentId]: { // Add new comment
+          id: state.currentId,
+          content: text,
+          upvoteCount: 0,
+          downvoteCount: 0,
+          children: [],
+        }
+      });
+}
+
 export default function contentReducers(state = initialState, action) {
   switch (action.type) {
     case ADD_POST:
@@ -70,26 +102,7 @@ export default function contentReducers(state = initialState, action) {
             },
           }
           : state.posts,
-        comments: {
-          ...state.comments,
-          [state.currentId]: { // Add new comment
-            id: state.currentId,
-            content: action.text,
-            upvoteCount: 0,
-            downvoteCount: 0,
-            children: [],
-          },
-          // Update parent comment (if applicable)
-          [action.parentId]: state.comments[action.parentId]
-            ? {
-              ...state.comments[action.parentId],
-              children: [
-                ...state.comments[action.parentId].children,
-                state.currentId,
-              ],
-            }
-            : null,
-        },
+        comments: updateComments(state, action.parentId, action.text),
       });
 
     case UPVOTE:
