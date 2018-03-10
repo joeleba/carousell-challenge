@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: OptionsRow renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "flex-end",
+      "flexDirection": "row",
+      "height": 15,
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    onPress={[Function]}
+    style={
+      Object {
+        "color": "grey",
+        "fontSize": 12,
+      }
+    }
+  >
+    <Icon
+      allowFontScaling={false}
+      name="reply"
+      size={12}
+    >
+       Reply  |  
+    </Icon>
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "grey",
+        "fontSize": 12,
+      }
+    }
+  >
+    <Icon
+      allowFontScaling={false}
+      name="arrow-up"
+      onPress={[Function]}
+      size={12}
+    />
+     0 
+    <Icon
+      allowFontScaling={false}
+      name="arrow-down"
+      onPress={[Function]}
+      size={12}
+    />
+  </Text>
+</View>
+`;
