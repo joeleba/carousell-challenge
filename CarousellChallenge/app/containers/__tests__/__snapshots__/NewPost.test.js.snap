@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: NewPost renders with nested comments 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "margin": 20,
+    }
+  }
+>
+  <Icon
+    allowFontScaling={false}
+    name="close"
+    onPress={[Function]}
+    size={20}
+  />
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    placeholder="Title"
+    style={
+      Object {
+        "marginBottom": 20,
+        "marginTop": 20,
+      }
+    }
+  />
+  <NewContentForm
+    onChange={[Function]}
+  />
+  <Button
+    disabled={true}
+    onPress={[Function]}
+    title="Submit"
+  />
+</View>
+`;
