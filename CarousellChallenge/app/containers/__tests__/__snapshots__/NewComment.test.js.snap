@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: NewComment renders with nested comments 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "margin": 20,
+    }
+  }
+>
+  <Icon
+    allowFontScaling={false}
+    name="close"
+    onPress={[Function]}
+    size={20}
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  >
+    Replying To:
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Object {
+        "color": "gray",
+        "marginBottom": 20,
+        "marginTop": 20,
+      }
+    }
+  >
+    abc
+  </Text>
+  <NewContentForm
+    onChange={[Function]}
+  />
+  <Button
+    disabled={true}
+    onPress={[Function]}
+    title="Submit"
+  />
+</View>
+`;
