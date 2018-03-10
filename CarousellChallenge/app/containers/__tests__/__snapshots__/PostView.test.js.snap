@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: PostView renders with nested comments 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "paddingTop": 22,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderBottomWidth": 1,
+        "borderColor": "lightgrey",
+        "padding": 10,
+      }
+    }
+  >
+    <Icon
+      allowFontScaling={false}
+      name="close"
+      onPress={[Function]}
+      size={20}
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "fontSize": 25,
+          "paddingTop": 10,
+        }
+      }
+    >
+       
+      sad
+       
+    </Text>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    >
+       
+      ccc
+       
+    </Text>
+    <Connect(OptionsRow)
+      currentComment={
+        Object {
+          "children": Array [
+            1,
+            2,
+          ],
+          "content": "ccc",
+          "downvoteCount": 0,
+          "id": 0,
+          "title": "sad",
+          "upvoteCount": 0,
+        }
+      }
+      postId={0}
+    />
+  </View>
+  <FlatList
+    data={
+      Array [
+        Object {
+          "children": Array [
+            3,
+            4,
+            5,
+          ],
+          "content": "ccc1",
+          "downvoteCount": 0,
+          "id": 1,
+          "upvoteCount": 0,
+        },
+        Object {
+          "children": Array [],
+          "content": "ccc2",
+          "downvoteCount": 0,
+          "id": 2,
+          "upvoteCount": 0,
+        },
+      ]
+    }
+    disableVirtualization={false}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onEndReachedThreshold={2}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    updateCellsBatchingPeriod={50}
+    windowSize={21}
+  />
+</View>
+`;
+
+exports[`Component: PostView renders with no comment 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "paddingTop": 22,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderBottomWidth": 1,
+        "borderColor": "lightgrey",
+        "padding": 10,
+      }
+    }
+  >
+    <Icon
+      allowFontScaling={false}
+      name="close"
+      onPress={[Function]}
+      size={20}
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "fontSize": 25,
+          "paddingTop": 10,
+        }
+      }
+    >
+       
+      sad
+       
+    </Text>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    >
+       
+      ccc
+       
+    </Text>
+    <Connect(OptionsRow)
+      currentComment={
+        Object {
+          "children": Array [],
+          "content": "ccc",
+          "downvoteCount": 0,
+          "id": 0,
+          "title": "sad",
+          "upvoteCount": 0,
+        }
+      }
+      postId={0}
+    />
+  </View>
+</View>
+`;
