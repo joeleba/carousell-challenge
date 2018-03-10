@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: PostListView renders when there's no post 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "paddingTop": 22,
+    }
+  }
+>
+  <ScrollView>
+    <FlatList
+      data={Array []}
+      disableVirtualization={false}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onEndReachedThreshold={2}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    />
+  </ScrollView>
+  <View
+    style={
+      Object {
+        "alignSelf": "flex-end",
+        "bottom": 35,
+        "position": "absolute",
+        "right": 35,
+      }
+    }
+  >
+    <Icon
+      allowFontScaling={false}
+      backgroundColor="#3b5998"
+      name="plus"
+      onPress={[Function]}
+      size={20}
+    />
+  </View>
+</View>
+`;
+
+exports[`Component: PostListView renders with correct postsObject prop 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "paddingTop": 22,
+    }
+  }
+>
+  <ScrollView>
+    <FlatList
+      data={
+        Array [
+          Object {
+            "children": Array [],
+            "content": "ccc",
+            "downvoteCount": 0,
+            "id": 0,
+            "title": "sad",
+            "upvoteCount": 0,
+          },
+        ]
+      }
+      disableVirtualization={false}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onEndReachedThreshold={2}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    />
+  </ScrollView>
+  <View
+    style={
+      Object {
+        "alignSelf": "flex-end",
+        "bottom": 35,
+        "position": "absolute",
+        "right": 35,
+      }
+    }
+  >
+    <Icon
+      allowFontScaling={false}
+      backgroundColor="#3b5998"
+      name="plus"
+      onPress={[Function]}
+      size={20}
+    />
+  </View>
+</View>
+`;

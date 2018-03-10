@@ -21,8 +21,6 @@ class PostListView extends Component {
       ['desc']
     );
 
-    console.log(posts);
-
     return (
       <View style={styles.container}>
         <ScrollView>

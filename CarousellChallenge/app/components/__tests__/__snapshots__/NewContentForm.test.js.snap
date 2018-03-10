@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: NewContentForm renders without crashing 1`] = `
+<TextInput
+  allowFontScaling={true}
+  editable={true}
+  maxLength={255}
+  multiline={true}
+  onChangeText={[Function]}
+  placeholder="What's on your mind?"
+  style={
+    Object {
+      "borderColor": "gray",
+      "borderWidth": 1,
+      "height": 100,
+    }
+  }
+/>
+`;
