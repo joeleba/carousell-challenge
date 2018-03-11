@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StackNavigator, addNavigationHelpers } from 'react-navigation';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
-import logger from 'redux-logger';
 
 import { createReduxBoundAddListener, createReactNavigationReduxMiddleware } from 'react-navigation-redux-helpers';
 import getRootReducer from './app/reducers';
