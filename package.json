@@ -9,6 +9,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
     "jest": "^22.4.2",
+    "jest-expo": "^25.1.0",
     "jest-react-native": "^18.0.0",
     "jest-serializer-enzyme": "^1.0.0",
     "react-addons-test-utils": "^15.6.2",
@@ -26,9 +27,9 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "react-native",
+    "preset": "jest-expo",
     "transformIgnorePatterns": [
-      "./node_modules/(?!react-native|react-native-vector-icons|react-navigation|react-navigation-redux-helpers)"
+      "./node_modules/(?!(jest-)?react-native|@expo|expo|react-navigation|react-navigation-redux-helpers)"
     ],
     "setupFiles": [
       "./jestSetup.js"
