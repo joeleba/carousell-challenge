@@ -1,13 +1,64 @@
 export const seeds = {
-  currentId: 25,
+  currentPostId: 21,
+  currentCommentId: 6,
   posts: {
     0: {
-      children: [1, 2],
+      children: [0, 1, 2],
       content: "ccc",
       downvoteCount: 0,
       upvoteCount: 0,
       title: "Post with some comments",
       id: 0
+    },
+    1: {
+      "children": [
+
+      ],
+      "content": "ccc1",
+      "downvoteCount": 0,
+      "upvoteCount": 0,
+      "title": "post #1",
+      "id": 1
+    },
+    2: {
+      "children": [
+
+      ],
+      "content": "ccc2",
+      "downvoteCount": 0,
+      "upvoteCount": 0,
+      "title": "post #2",
+      "id": 2
+    },
+    3: {
+      "children": [
+
+      ],
+      "content": "ccc3",
+      "downvoteCount": 0,
+      "upvoteCount": 0,
+      "title": "post #3",
+      "id": 3
+    },
+    4: {
+      "children": [
+
+      ],
+      "content": "ccc4",
+      "downvoteCount": 0,
+      "upvoteCount": 0,
+      "title": "post #4",
+      "id": 4
+    },
+    5: {
+      "children": [
+
+      ],
+      "content": "ccc5",
+      "downvoteCount": 0,
+      "upvoteCount": 0,
+      "title": "post #5",
+      "id": 5
     },
     6: {
       "children": [
@@ -159,48 +210,15 @@ export const seeds = {
       "title": "post #20",
       "id": 20
     },
-    21: {
-      "children": [
-
-      ],
-      "content": "ccc21",
-      "downvoteCount": 0,
-      "upvoteCount": 0,
-      "title": "post #21",
-      "id": 21
-    },
-    22: {
-      "children": [
-
-      ],
-      "content": "ccc22",
-      "downvoteCount": 0,
-      "upvoteCount": 0,
-      "title": "post #22",
-      "id": 22
-    },
-    23: {
-      "children": [
-
-      ],
-      "content": "ccc23",
-      "downvoteCount": 0,
-      "upvoteCount": 0,
-      "title": "post #23",
-      "id": 23
-    },
-    24: {
-      "children": [
-
-      ],
-      "content": "ccc24",
-      "downvoteCount": 0,
-      "upvoteCount": 0,
-      "title": "post #24",
-      "id": 24
-    }
   },
   comments: {
+    0: {
+      children: [],
+      content: "ccc0",
+      downvoteCount: 0,
+      upvoteCount: 0,
+      id: 0
+    },
     1: {
       children: [3, 4, 5],
       content: "ccc1",

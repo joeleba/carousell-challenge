@@ -24,9 +24,9 @@ exports[`Component: CommentThread renders with nested comments 1`] = `
     currentComment={
       Object {
         "children": Array [
+          2,
           3,
           4,
-          5,
         ],
         "content": "ccc1",
         "downvoteCount": 0,
@@ -41,6 +41,13 @@ exports[`Component: CommentThread renders with nested comments 1`] = `
       Array [
         Object {
           "children": Array [],
+          "content": "ccc2",
+          "downvoteCount": 0,
+          "id": 2,
+          "upvoteCount": 0,
+        },
+        Object {
+          "children": Array [],
           "content": "ccc3",
           "downvoteCount": 0,
           "id": 3,
@@ -51,13 +58,6 @@ exports[`Component: CommentThread renders with nested comments 1`] = `
           "content": "ccc4",
           "downvoteCount": 0,
           "id": 4,
-          "upvoteCount": 0,
-        },
-        Object {
-          "children": Array [],
-          "content": "ccc5",
-          "downvoteCount": 0,
-          "id": 5,
           "upvoteCount": 0,
         },
       ]

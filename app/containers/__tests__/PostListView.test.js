@@ -8,7 +8,7 @@ const mockStore = configureStore();
 
 const stateOnePost = {
   contentReducers: {
-    currentId: 1,
+    currentPostId: 1,
     posts: {
       0: {
         children: [],
@@ -25,7 +25,7 @@ const stateOnePost = {
 
 const stateNoPost = {
   contentReducers: {
-    currentId: 0,
+    currentPostId: 0,
     posts: {},
     comments: {}
   }

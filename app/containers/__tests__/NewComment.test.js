@@ -3,13 +3,14 @@ import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 
 import NewComment from '../NewComment';
-import { addComment } from '../../actions';
+import { addComment, POST_TYPE } from '../../actions';
 
 const mockStore = configureStore();
 
 const stateNoComment = {
   contentReducers: {
-    currentId: 1,
+    currentPostId: 1,
+    currentCommentId: 0,
     posts: {
       0: {
         children: [],
@@ -31,7 +32,8 @@ const navigationProp = {
         content: 'abc',
         id: 0
       },
-      postId: 0
+      postId: 0,
+      contentType: POST_TYPE
     }
   }
 };
@@ -58,7 +60,7 @@ describe('Component: NewComment', () => {
 
     const actions = store.getActions();
     const expectedPayload = [
-      { type: 'ADD_COMMENT', parentId: 0, text: '' },
+      { type: 'ADD_COMMENT', parentId: 0, parentType: POST_TYPE, text: '' },
       { type: 'Navigation/BACK', key: undefined, immediate: undefined }
     ];
 

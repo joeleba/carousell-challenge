@@ -8,10 +8,11 @@ const mockStore = configureStore();
 
 const stateNestedComments = {
   contentReducers: {
-    currentId: 6,
+    currentPostId: 1,
+    currentCommentId: 5,
     posts: {
       0: {
-        children: [1, 2],
+        children: [0, 1],
         content: "ccc",
         downvoteCount: 0,
         upvoteCount: 0,
@@ -20,8 +21,15 @@ const stateNestedComments = {
       }
     },
     comments: {
+      0: {
+        children: [],
+        content: "ccc0",
+        downvoteCount: 0,
+        upvoteCount: 0,
+        id: 0
+      },
       1: {
-        children: [3, 4, 5],
+        children: [2, 3, 4],
         content: "ccc1",
         downvoteCount: 0,
         upvoteCount: 0,
@@ -47,14 +55,7 @@ const stateNestedComments = {
         downvoteCount: 0,
         upvoteCount: 0,
         id: 4
-      },
-      5: {
-        children: [],
-        content: "ccc5",
-        downvoteCount: 0,
-        upvoteCount: 0,
-        id: 5
-      },
+      }
     },
   },
 };

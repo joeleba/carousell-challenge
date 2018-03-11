@@ -20,6 +20,7 @@ class NewComment extends Component {
   render() {
     const parentComment = this.props.navigation.state.params.replyingToObject;
     const postId = this.props.navigation.state.params.postId;
+    const parentType = this.props.navigation.state.params.contentType;
 
     return (
       <View style={styles.container}>
@@ -40,7 +41,7 @@ class NewComment extends Component {
 
         <Button
           onPress={() => {
-            this.props.dispatchAddComment(parentComment.id, this.state.formState.content);
+            this.props.dispatchAddComment(parentComment.id, parentType, this.state.formState.content);
             this.props.dispatchNavigateToPost(postId);
           }}
           title="Submit"
@@ -72,7 +73,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchAddComment: (parentId, text) => dispatch(addComment(parentId, text)),
+    dispatchAddComment: (parentId, parentType, text) => dispatch(addComment(parentId, parentType, text)),
     dispatchNavigateToPost: postId => dispatch(NavigationActions.back()),
   };
 }

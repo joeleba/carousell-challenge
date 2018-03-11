@@ -1,12 +1,13 @@
 import reducer from '../contentReducers';
-import { addPost, addComment, upvote, downvote } from '../../actions';
+import { addPost, addComment, upvote, downvote, POST_TYPE, COMMENT_TYPE } from '../../actions';
 import expect from 'expect';
 
 const initialState = {
-  currentId: 1,
+  currentPostId: 1,
+  currentCommentId: 1,
   posts: {
     0: {
-      children: [],
+      children: [0],
       content: 'text0',
       downvoteCount: 0,
       upvoteCount: 0,
@@ -14,7 +15,15 @@ const initialState = {
       id: 0
     },
   },
-  comments: {},
+  comments: {
+    0: {
+      children: [],
+      content: 'text',
+      downvoteCount: 0,
+      upvoteCount: 0,
+      id: 0
+    }
+  },
 };
 
 describe('Reducer', () => {
@@ -25,10 +34,11 @@ describe('Reducer', () => {
   it('should handle addPost', () => {
     const addPostAction = addPost('title1', 'text1');
     const expectedState = {
-      currentId: 2,
+      currentPostId: 2,
+      currentCommentId: 1,
       posts: {
         0: {
-          children: [],
+          children: [0],
           content: 'text0',
           downvoteCount: 0,
           upvoteCount: 0,
@@ -44,19 +54,28 @@ describe('Reducer', () => {
           id: 1
         },
       },
-      comments: {},
+      comments: {
+        0: {
+          children: [],
+          content: 'text',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          id: 0
+        }
+      },
     };
 
     expect(reducer(initialState, addPostAction)).toEqual(expectedState);
   });
 
-  it('should handle addComment', () => {
-    const addCommentAction = addComment(0, 'text');
+  it('should handle addComment to post', () => {
+    const addCommentAction = addComment(0, POST_TYPE, 'text1');
     const expectedState = {
-      currentId: 2,
+      currentPostId: 1,
+      currentCommentId: 2,
       posts: {
         0: {
-          children: [1],
+          children: [0, 1],
           content: 'text0',
           downvoteCount: 0,
           upvoteCount: 0,
@@ -65,9 +84,16 @@ describe('Reducer', () => {
         },
       },
       comments: {
-        1: {
+        0: {
           children: [],
           content: 'text',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          id: 0
+        },
+        1: {
+          children: [],
+          content: 'text1',
           downvoteCount: 0,
           upvoteCount: 0,
           id: 1
@@ -78,13 +104,50 @@ describe('Reducer', () => {
     expect(reducer(initialState, addCommentAction)).toEqual(expectedState);
   });
 
-  it('should handle upvote', () => {
-    const upvoteAction = upvote(0);
+  it('should handle addComment to comment', () => {
+    const addCommentAction = addComment(0, COMMENT_TYPE, 'text1');
     const expectedState = {
-      currentId: 1,
+      currentPostId: 1,
+      currentCommentId: 2,
       posts: {
         0: {
+          children: [0],
+          content: 'text0',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          title: 'title0',
+          id: 0
+        },
+      },
+      comments: {
+        0: {
+          children: [1],
+          content: 'text',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          id: 0
+        },
+        1: {
           children: [],
+          content: 'text1',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          id: 1
+        },
+      },
+    };
+
+    expect(reducer(initialState, addCommentAction)).toEqual(expectedState);
+  });
+
+  it('should handle upvote post', () => {
+    const upvoteAction = upvote(0, POST_TYPE);
+    const expectedState = {
+      currentPostId: 1,
+      currentCommentId: 1,
+      posts: {
+        0: {
+          children: [0],
           content: 'text0',
           downvoteCount: 0,
           upvoteCount: 1,
@@ -92,18 +155,55 @@ describe('Reducer', () => {
           id: 0
         },
       },
-      comments: {},
+      comments: {
+        0: {
+          children: [],
+          content: 'text',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          id: 0
+        },
+      },
     };
     expect(reducer(initialState, upvoteAction)).toEqual(expectedState);
   });
 
-  it('should handle downvote', () => {
-    const downvoteAction = downvote(0);
+  it('should handle upvote comment', () => {
+    const upvoteAction = upvote(0, COMMENT_TYPE);
     const expectedState = {
-      currentId: 1,
+      currentPostId: 1,
+      currentCommentId: 1,
       posts: {
         0: {
+          children: [0],
+          content: 'text0',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          title: 'title0',
+          id: 0
+        },
+      },
+      comments: {
+        0: {
           children: [],
+          content: 'text',
+          downvoteCount: 0,
+          upvoteCount: 1,
+          id: 0
+        },
+      },
+    };
+    expect(reducer(initialState, upvoteAction)).toEqual(expectedState);
+  });
+
+  it('should handle downvote post', () => {
+    const downvoteAction = downvote(0, POST_TYPE);
+    const expectedState = {
+      currentPostId: 1,
+      currentCommentId: 1,
+      posts: {
+        0: {
+          children: [0],
           content: 'text0',
           downvoteCount: 1,
           upvoteCount: 0,
@@ -111,7 +211,43 @@ describe('Reducer', () => {
           id: 0
         },
       },
-      comments: {},
+      comments: {
+        0: {
+          children: [],
+          content: 'text',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          id: 0
+        },
+      },
+    };
+    expect(reducer(initialState, downvoteAction)).toEqual(expectedState);
+  });
+
+  it('should handle downvote comment', () => {
+    const downvoteAction = downvote(0, COMMENT_TYPE);
+    const expectedState = {
+      currentPostId: 1,
+      currentCommentId: 1,
+      posts: {
+        0: {
+          children: [0],
+          content: 'text0',
+          downvoteCount: 0,
+          upvoteCount: 0,
+          title: 'title0',
+          id: 0
+        },
+      },
+      comments: {
+        0: {
+          children: [],
+          content: 'text',
+          downvoteCount: 1,
+          upvoteCount: 0,
+          id: 0
+        },
+      },
     };
     expect(reducer(initialState, downvoteAction)).toEqual(expectedState);
   });

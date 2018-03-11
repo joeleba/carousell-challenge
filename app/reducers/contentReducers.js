@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ADD_POST, ADD_COMMENT, UPVOTE, DOWNVOTE } from '../actions';
+import { ADD_POST, ADD_COMMENT, UPVOTE, DOWNVOTE, POST_TYPE } from '../actions';
 import { seeds } from './seeds';
 
 const initialState = seeds;
@@ -32,36 +32,55 @@ function changeVoteComment(state, isUpvote, id) {
   });
 }
 
-function updateComments(state, parentId, text) {
-  return state.comments[parentId]
-    ? _.assign({}, state.comments, {
-        ...state.comments,
-        [state.currentId]: { // Add new comment
-          id: state.currentId,
-          content: text,
-          upvoteCount: 0,
-          downvoteCount: 0,
-          children: [],
-        },
-        // Update parent comment
-        [parentId]: {
-          ...state.comments[parentId],
-          children: [
-            ...state.comments[parentId].children,
-            state.currentId,
-          ],
-        }
-      })
-    : _.assign({}, state.comments, {
-        ...state.comments,
-        [state.currentId]: { // Add new comment
-          id: state.currentId,
-          content: text,
-          upvoteCount: 0,
-          downvoteCount: 0,
-          children: [],
-        }
-      });
+function addCommentToPost(state, parentId, text) {
+  return _.assign({}, state, {
+          ...state,
+          currentCommentId: state.currentCommentId + 1,
+          posts: {
+            ...state.posts,
+            [parentId]: {
+              ...state.posts[parentId],
+              children: [
+                ...state.posts[parentId].children,
+                state.currentCommentId,
+              ],
+            },
+          },
+          comments: {
+            ...state.comments,
+            [state.currentCommentId]: { // Add new comment
+              id: state.currentCommentId,
+              content: text,
+              upvoteCount: 0,
+              downvoteCount: 0,
+              children: [],
+            },
+          },
+        });
+}
+
+function addCommentToComment(state, parentId, text) {
+  return _.assign({}, state, {
+          ...state,
+          currentCommentId: state.currentCommentId + 1,
+          comments: {
+            ...state.comments,
+            [state.currentCommentId]: { // Add new comment
+              id: state.currentCommentId,
+              content: text,
+              upvoteCount: 0,
+              downvoteCount: 0,
+              children: [],
+            },
+            [parentId]: {
+              ...state.comments[parentId],
+              children: [
+                ...state.comments[parentId].children,
+                state.currentCommentId,
+              ],
+            },
+          },
+        });
 }
 
 export default function contentReducers(state = initialState, action) {
@@ -69,11 +88,11 @@ export default function contentReducers(state = initialState, action) {
     case ADD_POST:
       return _.assign({}, state, {
         ...state,
-        currentId: state.currentId + 1,
+        currentPostId: state.currentPostId + 1,
         posts: {
           ...state.posts,
-          [state.currentId]: {
-            id: state.currentId,
+          [state.currentPostId]: {
+            id: state.currentPostId,
             content: action.text,
             title: action.title,
             upvoteCount: 0,
@@ -84,31 +103,17 @@ export default function contentReducers(state = initialState, action) {
       });
 
     case ADD_COMMENT:
-      return _.assign({}, state, {
-        ...state,
-        currentId: state.currentId + 1,
-        posts: state.posts[action.parentId] // Update parent post (if applicable)
-          ? {
-            ...state.posts,
-            [action.parentId]: {
-              ...state.posts[action.parentId],
-              children: [
-                ...state.posts[action.parentId].children,
-                state.currentId,
-              ],
-            },
-          }
-          : state.posts,
-        comments: updateComments(state, action.parentId, action.text),
-      });
+      return action.parentType === POST_TYPE
+        ? addCommentToPost(state, action.parentId, action.text)
+        : addCommentToComment(state, action.parentId, action.text);
 
     case UPVOTE:
-      return state.posts[action.id]
+      return action.contentType === POST_TYPE
         ? changeVotePost(state, true, action.id)
         : changeVoteComment(state, true, action.id);
 
     case DOWNVOTE:
-      return state.posts[action.id]
+      return action.contentType === POST_TYPE
         ? changeVotePost(state, false, action.id)
         : changeVoteComment(state, false, action.id);
 

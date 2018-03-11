@@ -10,7 +10,7 @@ const mockStore = configureStore();
 
 const stateNoPostNoComment = {
   contentReducers: {
-    currentId: 0,
+    currentPostId: 0,
     posts: {},
     comments: {},
   },
@@ -37,7 +37,7 @@ describe('Component: NewPost', () => {
     );
     const render = wrapper.dive();
     expect(render).toMatchSnapshot();
-    expect(wrapper.prop('currentId')).toEqual(0);
+    expect(wrapper.prop('currentPostId')).toEqual(0);
   });
 
   it('dispatches correct actions on submit', () => {

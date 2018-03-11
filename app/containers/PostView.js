@@ -8,6 +8,7 @@ import _ from 'lodash';
 import NewContentForm from '../components/NewContentForm';
 import CommentThreadWrapper from '../containers/CommentThread';
 import OptionsRow from '../containers/OptionsRow';
+import { POST_TYPE } from '../actions';
 
 class PostView extends Component {
   keyExtractor(item, index) {
@@ -30,7 +31,7 @@ class PostView extends Component {
           <Text style={styles.title}> {post.title} </Text>
           <Text> {post.content} </Text>
 
-          <OptionsRow currentComment={post} postId={post.id} />
+          <OptionsRow currentComment={post} postId={post.id} contentType={POST_TYPE} />
         </View>
 
         { childrenObjects.length !== 0 &&

@@ -14,12 +14,13 @@ class OptionsRow extends Component {
   render() {
     let currentComment = this.props.currentComment;
     let postId = this.props.postId;
+    let contentType = this.props.contentType;
 
     return (
       <View style={styles.optionsRow}>
         <Text
           style={styles.option}
-          onPress={() => this.props.dispatchNavigateToNewReply(postId, currentComment)}
+          onPress={() => this.props.dispatchNavigateToNewReply(postId, currentComment, contentType)}
         >
           <Icon name="reply">
             {' Reply  |  '}
@@ -29,12 +30,12 @@ class OptionsRow extends Component {
         <Text style={styles.option}>
           <Icon
             name="arrow-up"
-            onPress={() => this.props.dispatchUpvoteAction(currentComment.id)}
+            onPress={() => this.props.dispatchUpvoteAction(currentComment.id, contentType)}
           />
           {` ${(currentComment.upvoteCount - currentComment.downvoteCount)} `}
           <Icon
             name="arrow-down"
-            onPress={() => this.props.dispatchDownvoteAction(currentComment.id)}
+            onPress={() => this.props.dispatchDownvoteAction(currentComment.id, contentType)}
           />
         </Text>
       </View>
@@ -60,16 +61,17 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchNavigateToNewReply: (postId, replyingToObject) =>
+    dispatchNavigateToNewReply: (postId, replyingToObject, contentType) =>
       dispatch(NavigationActions.navigate({
         routeName: 'NewComment',
         params: {
           postId,
           replyingToObject,
+          contentType
         },
       })),
-    dispatchUpvoteAction: id => dispatch(upvote(id)),
-    dispatchDownvoteAction: id => dispatch(downvote(id)),
+    dispatchUpvoteAction: (id, contentType) => dispatch(upvote(id, contentType)),
+    dispatchDownvoteAction: (id, contentType) => dispatch(downvote(id, contentType)),
   };
 }
 

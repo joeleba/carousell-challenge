@@ -38,7 +38,7 @@ class NewPost extends Component {
 
         <Button
           onPress={() => {
-            let newPostId = this.props.currentId;
+            let newPostId = this.props.currentPostId;
             this.props.dispatchAddPost(this.state.title, this.state.formState.content);
             this.props.dispatchNavigateToPost(newPostId);
           }}
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    currentId: state.contentReducers.currentId,
+    currentPostId: state.contentReducers.currentPostId,
   };
 }
 

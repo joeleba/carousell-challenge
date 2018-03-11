@@ -5,7 +5,7 @@ import { NavigationActions } from 'react-navigation';
 import Icon from '@expo/vector-icons/FontAwesome';
 import _ from 'lodash';
 
-import { upvote, downvote } from '../actions';
+import { upvote, downvote, POST_TYPE } from '../actions';
 
 class PostListView extends Component {
   keyExtractor(item, index) {
@@ -110,8 +110,8 @@ function mapDispatchToProps(dispatch) {
       })),
     dispatchNavigateToNewPost: () =>
       dispatch(NavigationActions.navigate({ routeName: 'NewPost' })),
-    dispatchUpvoteAction: id => dispatch(upvote(id)),
-    dispatchDownvoteAction: id => dispatch(downvote(id)),
+    dispatchUpvoteAction: id => dispatch(upvote(id, POST_TYPE)),
+    dispatchDownvoteAction: id => dispatch(downvote(id, POST_TYPE)),
   };
 }
 

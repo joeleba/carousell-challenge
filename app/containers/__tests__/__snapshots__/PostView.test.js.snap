@@ -49,11 +49,12 @@ exports[`Component: PostView renders with nested comments 1`] = `
        
     </Text>
     <Connect(OptionsRow)
+      contentType="POST"
       currentComment={
         Object {
           "children": Array [
+            0,
             1,
-            2,
           ],
           "content": "ccc",
           "downvoteCount": 0,
@@ -69,21 +70,21 @@ exports[`Component: PostView renders with nested comments 1`] = `
     data={
       Array [
         Object {
+          "children": Array [],
+          "content": "ccc0",
+          "downvoteCount": 0,
+          "id": 0,
+          "upvoteCount": 0,
+        },
+        Object {
           "children": Array [
+            2,
             3,
             4,
-            5,
           ],
           "content": "ccc1",
           "downvoteCount": 0,
           "id": 1,
-          "upvoteCount": 0,
-        },
-        Object {
-          "children": Array [],
-          "content": "ccc2",
-          "downvoteCount": 0,
-          "id": 2,
           "upvoteCount": 0,
         },
       ]
@@ -152,6 +153,7 @@ exports[`Component: PostView renders with no comment 1`] = `
        
     </Text>
     <Connect(OptionsRow)
+      contentType="POST"
       currentComment={
         Object {
           "children": Array [],
