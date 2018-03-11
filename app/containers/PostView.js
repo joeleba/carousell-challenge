@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, FlatList, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '@expo/vector-icons/FontAwesome';
 import _ from 'lodash';
 
 import NewContentForm from '../components/NewContentForm';

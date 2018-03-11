@@ -24,7 +24,8 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
   },
   "jest": {
     "preset": "react-native",
@@ -39,6 +40,7 @@
     ]
   },
   "dependencies": {
+    "@expo/vector-icons": "^6.3.1",
     "expo": "^25.0.0",
     "lodash": "^4.17.5",
     "react": "16.2.0",
