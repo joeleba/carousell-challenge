@@ -1,11 +1,8 @@
 import _ from 'lodash';
 import { ADD_POST, ADD_COMMENT, UPVOTE, DOWNVOTE } from '../actions';
+import { seeds } from './seeds';
 
-const initialState = {
-  currentId: 0,
-  posts: {},
-  comments: {},
-};
+const initialState = seeds;
 
 function changeVotePost(state, isUpvote, id) {
   return _.assign({}, state, {
