@@ -28,7 +28,9 @@ class NewPost extends Component {
         />
 
         <TextInput
-          onChangeText={(text) => { this.state.title = text; }}
+          onChangeText={(text) => {
+            this.setState({ title: text });
+          }}
           style={styles.titleInput}
           placeholder="Title"
         />
